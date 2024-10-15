@@ -16,4 +16,14 @@ public class CourseAssignmentMapper {
                 .course(Course.builder().id(request.courseId()).build())
                 .build();
     }
+
+    public CourseAssignmentResponse fromCourseAssignment(CourseAssignment courseAssignment) {
+        return CourseAssignmentResponse.builder()
+                .id(courseAssignment.getId())
+                .instructorName(courseAssignment.getInstructor().getName())
+                .courseTitle(courseAssignment.getCourse().getTitle())
+                .creditCourse(courseAssignment.getCourse().getCredit())
+                .departmentName(courseAssignment.getCourse().getDepartment().getName())
+                .build();
+    }
 }

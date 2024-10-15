@@ -7,6 +7,9 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class CourseAssignmentService {
@@ -23,5 +26,11 @@ public class CourseAssignmentService {
         courseAssignment.setInstructor(instructor);
         courseAssignment.setCourse(course);
         return repository.save(courseAssignment).getId();
+    }
+    public List<CourseAssignmentResponse> listCourseInstructors() {
+        return repository.findAll()
+                .stream()
+                .map(mapper::fromCourseAssignment)
+                .collect(Collectors.toList());
     }
 }

@@ -3,10 +3,10 @@ package com.university.courseAssignment;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("assignment")
@@ -17,5 +17,10 @@ public class CourseAssignmentController {
             @RequestBody @Valid CourseAssignmentRequest request
     ){
         return ResponseEntity.ok(service.assignCourseInstructor(request));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<CourseAssignmentResponse>> listCourseInstructors(){
+        return ResponseEntity.ok(service.listCourseInstructors());
     }
 }
