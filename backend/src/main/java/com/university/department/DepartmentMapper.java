@@ -15,4 +15,13 @@ public class DepartmentMapper {
                 .administrator(Instructor.builder().id(request.instructorId()).build())
                 .build();
     }
+
+    public DepartmentResponse fromDepartment(Department department) {
+        return DepartmentResponse.builder()
+                .id(department.getId())
+                .name(department.getName())
+                .description(department.getDescription())
+                .administrator(department.getAdministrator().getName())
+                .build();
+    }
 }

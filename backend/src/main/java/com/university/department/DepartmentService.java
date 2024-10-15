@@ -6,6 +6,9 @@ import com.university.handler.BusinessErrorCodes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class DepartmentService {
@@ -18,5 +21,12 @@ public class DepartmentService {
         }
         var department = mapper.toDepartment(request);
         return repository.save(department).getName();
+    }
+
+    public List<DepartmentResponse> getAllDepartment() {
+        return repository.findAll()
+                .stream()
+                .map(mapper::fromDepartment)
+                .collect(Collectors.toList()) ;
     }
 }

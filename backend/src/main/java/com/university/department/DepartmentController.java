@@ -18,4 +18,8 @@ public class DepartmentController {
     ){
         return ResponseEntity.ok(service.createDepartment(request));
     }
+    @GetMapping
+    public ResponseEntity<List<DepartmentResponse>> getAllDepartment(){
+        return ResponseEntity.ok(service.getAllDepartment());
+    }
 }
