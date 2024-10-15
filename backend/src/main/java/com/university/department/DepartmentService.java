@@ -62,4 +62,10 @@ public class DepartmentService {
             repository.save(department);
         }
     }
+
+    public void deleteDepartment(Integer departmentId) {
+        var department = repository.findById(departmentId)
+                .orElseThrow(() -> new EntityNotFoundException(BusinessErrorCodes.ENTITY_NOT_FOUND.getDescription() + " : " + departmentId));
+        repository.delete(department);
+    }
 }
