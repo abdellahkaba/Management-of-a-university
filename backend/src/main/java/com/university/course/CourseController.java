@@ -25,4 +25,11 @@ public class CourseController {
     public ResponseEntity<List<CourseResponse>> listCourses(){
         return ResponseEntity.ok(service.listCourse());
     }
+
+    @GetMapping("/{course-id}")
+    public ResponseEntity<CourseResponse> getCourseById(
+            @PathVariable("course-id") Integer courseId
+    ){
+        return ResponseEntity.ok(service.getCourseById(courseId));
+    }
 }

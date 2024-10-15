@@ -3,6 +3,7 @@ package com.university.course;
 
 import com.university.exception.CourseException;
 import com.university.handler.BusinessErrorCodes;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -28,5 +29,11 @@ public class CourseService {
                 .stream()
                 .map(mapper::fromCourse)
                 .collect(Collectors.toList());
+    }
+
+    public CourseResponse getCourseById(Integer courseId) {
+        return repository.findById(courseId)
+                .map(mapper::fromCourse)
+                .orElseThrow(() -> new EntityNotFoundException(BusinessErrorCodes.ENTITY_NOT_FOUND.getDescription() + " : " + courseId));
     }
 }
