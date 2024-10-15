@@ -44,4 +44,12 @@ public class CourseController {
         service.updateCourse(request);
         return ResponseEntity.accepted().build();
     }
+
+    @DeleteMapping("/{course-id}")
+    public ResponseEntity<Void> deleteCourse(
+            @PathVariable("course-id") Integer courseId
+    ){
+        service.deleteCourse(courseId);
+        return ResponseEntity.accepted().build();
+    }
 }

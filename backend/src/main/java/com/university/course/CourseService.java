@@ -56,4 +56,10 @@ public class CourseService {
         }
         repository.save(course);
     }
+
+    public void deleteCourse(Integer courseId) {
+        var course = repository.findById(courseId)
+                .orElseThrow(() -> new EntityNotFoundException(BusinessErrorCodes.ENTITY_NOT_FOUND.getDescription() + " : " + courseId));
+        repository.delete(course);
+    }
 }
