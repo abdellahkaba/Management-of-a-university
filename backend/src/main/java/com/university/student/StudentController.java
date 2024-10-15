@@ -32,4 +32,17 @@ public class StudentController {
     ){
         return ResponseEntity.ok(service.getStudentById(studentId)) ;
     }
+
+    @PutMapping("/{student-id}")
+    public ResponseEntity<Void> updateStudent(
+            @PathVariable("student-id") Integer id,
+            @RequestBody UpdateStudentRequest request
+    ){
+        request = new UpdateStudentRequest(
+                id,
+                request.name(), request.dateNaiss()
+        );
+        service.updateStudent(request);
+        return ResponseEntity.accepted().build();
+    }
 }
