@@ -10,6 +10,7 @@ public enum BusinessErrorCodes {
     NO_CODE(0, NOT_IMPLEMENTED, "Aucun code"),
     DUPLICATE_CONTACT(400, HttpStatus.CONFLICT, "Le numero de téléphone existe déjà"),
     ENTITY_NOT_FOUND(404, HttpStatus.NOT_FOUND, "Entité non trouvée"),
+    DUPLICATE_NAME(409, HttpStatus.CONFLICT, "Ce nom existe déjà")
     ;
     private final int code;
     private final String description;

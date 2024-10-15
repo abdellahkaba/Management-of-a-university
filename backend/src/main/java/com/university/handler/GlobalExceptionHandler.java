@@ -1,6 +1,7 @@
 package com.university.handler;
 
 import com.university.exception.ContactConflictException;
+import com.university.exception.NameConflictException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -55,6 +56,19 @@ public class GlobalExceptionHandler {
                 .body(
                         ExceptionResponse.builder()
                                 .validationErrors(errors)
+                                .build()
+                );
+    }
+
+    @ExceptionHandler(NameConflictException.class)
+    public ResponseEntity<ExceptionResponse> handleException(NameConflictException exp) {
+        return ResponseEntity
+                .status(BusinessErrorCodes.DUPLICATE_NAME.getHttpStatus())
+                .body(
+                        ExceptionResponse.builder()
+                                .businessErrorCode(BusinessErrorCodes.DUPLICATE_NAME.getCode())
+                                .businessErrorDescription(BusinessErrorCodes.DUPLICATE_NAME.getDescription())
+                                .error(exp.getMessage())
                                 .build()
                 );
     }
