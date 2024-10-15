@@ -16,4 +16,13 @@ public class CourseMapper {
                 .department(Department.builder().id(request.departmentId()).build())
                 .build();
     }
+
+    public CourseResponse fromCourse(Course course) {
+        return CourseResponse.builder()
+                .id(course.getId())
+                .title(course.getTitle())
+                .credit(course.getCredit())
+                .departmentName(course.getDepartment().getName())
+                .build();
+    }
 }
