@@ -17,4 +17,14 @@ public class EnrollmentMapper {
                 .course(Course.builder().id(request.courseId()).build())
                 .build();
     }
+
+    public EnrollmentResponse fromEnrollment(Enrollment enrollment) {
+        return EnrollmentResponse.builder()
+                .id(enrollment.getId())
+                .studentName(enrollment.getStudent().getName())
+                .courseTitle(enrollment.getCourse().getTitle())
+                .grade(enrollment.getGrade().toString())
+                .departmentName(enrollment.getCourse().getDepartment().getName())
+                .build();
+    }
 }
