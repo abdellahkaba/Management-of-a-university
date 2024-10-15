@@ -32,4 +32,16 @@ public class CourseController {
     ){
         return ResponseEntity.ok(service.getCourseById(courseId));
     }
+
+    @PutMapping("/{course-id}")
+    public ResponseEntity<Void> updateCourse(
+            @PathVariable("course-id") Integer id,
+            @RequestBody UpdateCourseRequest request
+    ){
+        request = new UpdateCourseRequest(
+                id, request.title(), request.credit(), request.departmentId()
+        );
+        service.updateCourse(request);
+        return ResponseEntity.accepted().build();
+    }
 }
