@@ -42,4 +42,23 @@ public class EnrollmentService {
                 .map(mapper::fromEnrollment)
                 .orElseThrow(() -> new EntityNotFoundException(BusinessErrorCodes.ENTITY_NOT_FOUND.getDescription() + " : " + enrollId));
     }
+
+    public void updateEnrollment(UpdateEnrollmentRequest request) {
+        var enrollment = repository.findById(request.id())
+                .orElseThrow(() -> new EntityNotFoundException(BusinessErrorCodes.ENTITY_NOT_FOUND.getDescription() + " : " + request.id()));
+        if (request.studentId() != null) {
+            var student = studentRepository.findById(request.studentId())
+                    .orElseThrow(() -> new EntityNotFoundException("Cet Etudiant n'existe pas"));
+            enrollment.setStudent(student);
+        }
+        if (request.courseId() != null) {
+            var course = courseRepository.findById(request.courseId())
+                    .orElseThrow(() -> new EntityNotFoundException("Ce cours n'existe pas"));
+            enrollment.setCourse(course);
+        }
+        if (request.grade() != null) {
+            enrollment.setGrade(request.grade());
+        }
+        repository.save(enrollment);
+    }
 }

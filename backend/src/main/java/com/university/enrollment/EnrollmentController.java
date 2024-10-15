@@ -32,4 +32,16 @@ public class EnrollmentController {
     ){
         return ResponseEntity.ok(service.getEnrollStudentById(enrollId));
     }
+
+    @PutMapping("/{enroll-id}")
+    public ResponseEntity<Void> updateEnrollment(
+            @PathVariable("enroll-id") Integer id,
+            @RequestBody @Valid UpdateEnrollmentRequest request
+    ){
+        request = new UpdateEnrollmentRequest(
+                id, request.grade(), request.studentId(), request.courseId()
+        );
+        service.updateEnrollment(request);
+        return ResponseEntity.accepted().build();
+    }
 }
