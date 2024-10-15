@@ -2,6 +2,7 @@ package com.university.enrollment;
 
 
 import com.university.course.CourseRepository;
+import com.university.handler.BusinessErrorCodes;
 import com.university.student.StudentRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -34,5 +35,11 @@ public class EnrollmentService {
                 .stream()
                 .map(mapper::fromEnrollment)
                 .collect(Collectors.toList());
+    }
+
+    public EnrollmentResponse getEnrollStudentById(Integer enrollId) {
+        return repository.findById(enrollId)
+                .map(mapper::fromEnrollment)
+                .orElseThrow(() -> new EntityNotFoundException(BusinessErrorCodes.ENTITY_NOT_FOUND.getDescription() + " : " + enrollId));
     }
 }

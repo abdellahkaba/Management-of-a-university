@@ -25,4 +25,11 @@ public class EnrollmentController {
     public ResponseEntity<List<EnrollmentResponse>> listStudentEnroll(){
         return ResponseEntity.ok(service.listStudentEnroll());
     }
+
+    @GetMapping("/{enroll-id}")
+    public ResponseEntity<EnrollmentResponse> getEnrollStudentById(
+            @PathVariable("enroll-id") Integer enrollId
+    ){
+        return ResponseEntity.ok(service.getEnrollStudentById(enrollId));
+    }
 }
