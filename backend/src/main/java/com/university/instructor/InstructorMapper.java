@@ -14,4 +14,13 @@ public class InstructorMapper {
                 .hireDate(request.hireDate())
                 .build();
     }
+
+    public InstructorResponse fromInstructor(Instructor instructor) {
+        return InstructorResponse.builder()
+                .id(instructor.getId())
+                .name(instructor.getName())
+                .contact(instructor.getContact())
+                .hireDate(instructor.getHireDate())
+                .build();
+    }
 }
