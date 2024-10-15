@@ -8,7 +8,9 @@ import static org.springframework.http.HttpStatus.NOT_IMPLEMENTED;
 @Getter
 public enum BusinessErrorCodes {
     NO_CODE(0, NOT_IMPLEMENTED, "Aucun code"),
-    DUPLICATE_CONTACT(400, HttpStatus.CONFLICT, "Le numero de téléphone existe déjà");
+    DUPLICATE_CONTACT(400, HttpStatus.CONFLICT, "Le numero de téléphone existe déjà"),
+    ENTITY_NOT_FOUND(404, HttpStatus.NOT_FOUND, "Entité non trouvée"),
+    ;
     private final int code;
     private final String description;
     private final HttpStatus httpStatus;

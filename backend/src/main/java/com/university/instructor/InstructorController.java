@@ -25,4 +25,11 @@ public class InstructorController {
     public ResponseEntity<List<InstructorResponse>> listAllInstructor(){
         return ResponseEntity.ok(service.listAllInstructor());
     }
+
+    @GetMapping("/{instructor-id}")
+    public ResponseEntity<InstructorResponse> getInstructorById(
+            @PathVariable("instructor-id") Integer instructorId
+    ){
+        return ResponseEntity.ok(service.getInstructorById(instructorId));
+    }
 }

@@ -2,6 +2,7 @@ package com.university.instructor;
 
 import com.university.exception.ContactConflictException;
 import com.university.handler.BusinessErrorCodes;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,5 +27,11 @@ public class InstructorService {
                 .stream()
                 .map(mapper::fromInstructor)
                 .collect(Collectors.toList());
+    }
+
+    public InstructorResponse getInstructorById(Integer instructorId) {
+        return repository.findById(instructorId)
+                .map(mapper::fromInstructor)
+                .orElseThrow(() -> new EntityNotFoundException(BusinessErrorCodes.ENTITY_NOT_FOUND.getDescription() + " : " + instructorId)) ;
     }
 }
