@@ -2,6 +2,7 @@ package com.university.courseAssignment;
 
 
 import com.university.course.CourseRepository;
+import com.university.handler.BusinessErrorCodes;
 import com.university.instructor.InstructorRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -32,5 +33,11 @@ public class CourseAssignmentService {
                 .stream()
                 .map(mapper::fromCourseAssignment)
                 .collect(Collectors.toList());
+    }
+
+    public CourseAssignmentResponse getCourseAssign(Integer assignmentId) {
+        return repository.findById(assignmentId)
+                .map(mapper::fromCourseAssignment)
+                .orElseThrow(() -> new EntityNotFoundException(BusinessErrorCodes.ENTITY_NOT_FOUND.getDescription() + " : " + assignmentId));
     }
 }

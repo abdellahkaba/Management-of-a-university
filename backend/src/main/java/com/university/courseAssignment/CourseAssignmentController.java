@@ -23,4 +23,11 @@ public class CourseAssignmentController {
     public ResponseEntity<List<CourseAssignmentResponse>> listCourseInstructors(){
         return ResponseEntity.ok(service.listCourseInstructors());
     }
+
+    @GetMapping("/{assignment-id}")
+    public ResponseEntity<CourseAssignmentResponse> getCourseAssign(
+            @PathVariable("assignment-id") Integer assignmentId
+    ){
+        return ResponseEntity.ok(service.getCourseAssign(assignmentId));
+    }
 }
