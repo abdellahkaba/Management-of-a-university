@@ -3,6 +3,7 @@ package com.university.department;
 
 import com.university.exception.NameConflictException;
 import com.university.handler.BusinessErrorCodes;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -28,5 +29,11 @@ public class DepartmentService {
                 .stream()
                 .map(mapper::fromDepartment)
                 .collect(Collectors.toList()) ;
+    }
+
+    public DepartmentResponse getDepartmentById(Integer departmentId) {
+        return repository.findById(departmentId)
+                .map(mapper::fromDepartment)
+                .orElseThrow(() -> new EntityNotFoundException(BusinessErrorCodes.ENTITY_NOT_FOUND.getDescription()+ " : " + departmentId));
     }
 }

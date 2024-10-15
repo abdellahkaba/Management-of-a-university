@@ -22,4 +22,11 @@ public class DepartmentController {
     public ResponseEntity<List<DepartmentResponse>> getAllDepartment(){
         return ResponseEntity.ok(service.getAllDepartment());
     }
+
+    @GetMapping("/{department-id}")
+    public ResponseEntity<DepartmentResponse> getDepartmentById(
+            @PathVariable("department-id") Integer departmentId
+    ){
+        return ResponseEntity.ok(service.getDepartmentById(departmentId));
+    }
 }
