@@ -15,4 +15,12 @@ public class OfficeMapper {
                 .instructor(Instructor.builder().id(request.instructorId()).build())
                 .build();
     }
+
+    public OfficeResponse fromOffice(OfficeAssignment officeAssignment) {
+        return OfficeResponse.builder()
+                .id(officeAssignment.getId())
+                .location(officeAssignment.getLocation())
+                .InstructorName(officeAssignment.getInstructor().getName())
+                .build();
+    }
 }
