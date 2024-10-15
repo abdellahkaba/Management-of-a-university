@@ -14,9 +14,23 @@ services:
     networks:
       - spring-university
     restart: unless-stopped
+  keycloak:
+    container_name: keycloak-university
+    image: quay.io/keycloak/keycloak:24.0.2
+    ports:
+      - 9090:8080
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    networks:
+      - spring-university
+    command:
+      - "start-dev"
 networks:
   spring-university:
     driver: bridge
 volumes:
   postgres:
+    driver: local
+  keycloak:
     driver: local
