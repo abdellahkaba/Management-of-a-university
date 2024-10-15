@@ -1,0 +1,59 @@
+C:\Users\Kaba\Documents\spring\manage-university>docker ps
+CONTAINER ID   IMAGE                              COMMAND                  CREATED        STATUS        PORTS                              NAMES
+5ffe62241413   quay.io/keycloak/keycloak:24.0.2   "/opt/keycloak/bin/k…"   8 hours ago    Up 8 hours    8443/tcp, 0.0.0.0:9090->8080/tcp   keycloak-university
+6b6eb0fc0630   postgres                           "docker-entrypoint.s…"   24 hours ago   Up 11 hours   0.0.0.0:5432->5432/tcp             postgres-manage-university
+
+C:\Users\Kaba\Documents\spring\manage-university>docker exec -it 5ffe62241413 /bin/sh
+sh-5.1$ pwd
+/
+sh-5.1$ ls -l
+total 56
+dr-xr-xr-x   2 root root 4096 Aug  9  2021 afs
+lrwxrwxrwx   1 root root    7 Aug  9  2021 bin -> usr/bin
+dr-xr-xr-x   2 root root 4096 Aug  9  2021 boot
+drwxr-xr-x   5 root root  340 Oct 15 15:21 dev
+drwxr-xr-x   1 root root 4096 Oct 15 15:21 etc
+drwxr-xr-x   2 root root 4096 Aug  9  2021 home
+lrwxrwxrwx   1 root root    7 Aug  9  2021 lib -> usr/lib
+lrwxrwxrwx   1 root root    9 Aug  9  2021 lib64 -> usr/lib64
+drwxr-xr-x   2 root root 4096 Aug  9  2021 media
+drwxr-xr-x   2 root root 4096 Aug  9  2021 mnt
+drwxr-xr-x   1 root root 4096 Mar 24  2024 opt
+dr-xr-xr-x 240 root root    0 Oct 15 15:21 proc
+dr-xr-x---   3 root root 4096 Feb 29  2024 root
+drwxr-xr-x   4 root root 4096 Feb 29  2024 run
+lrwxrwxrwx   1 root root    8 Aug  9  2021 sbin -> usr/sbin
+drwxr-xr-x   2 root root 4096 Aug  9  2021 srv
+dr-xr-xr-x  11 root root    0 Oct 15 15:21 sys
+drwxrwxrwt   1 root root 4096 Oct 15 15:21 tmp
+drwxr-xr-x   1 root root 4096 Mar 24  2024 usr
+drwxr-xr-x   1 root root 4096 Mar 24  2024 var
+sh-5.1$ cd opt/
+sh-5.1$ ls -l
+total 8
+drwxr-xr-x 1 keycloak root 4096 Oct 15 15:21 keycloak
+sh-5.1$ cd keycloak/
+sh-5.1$ ls -l
+total 48
+drwxrwxr-x 3 keycloak root  4096 Mar 24  2024 bin
+drwxrwxr-x 3 keycloak root  4096 Mar 24  2024 conf
+drwxrwxr-x 1 keycloak root  4096 Oct 15 15:21 data
+drwxrwxr-x 1 keycloak root  4096 Mar 24  2024 lib
+-rw-rw-r-- 1 keycloak root 11358 Mar 24  2024 LICENSE.txt
+drwxrwxr-x 2 keycloak root  4096 Mar 24  2024 providers
+-rw-rw-r-- 1 keycloak root   492 Mar 24  2024 README.md
+drwxrwxr-x 2 keycloak root  4096 Mar 24  2024 themes
+-rw-rw-r-- 1 keycloak root    26 Mar 24  2024 version.txt
+sh-5.1$ cd bin/
+sh-5.1$ ls -l
+total 40
+drwxrwxr-x 3 keycloak root 4096 Mar 24  2024 client
+-rwxrwxr-x 1 keycloak root 1009 Mar 24  2024 federation-sssd-setup.sh
+-rw-rw-r-- 1 keycloak root  832 Mar 24  2024 kcadm.bat
+-rwxrwxr-x 1 keycloak root  822 Mar 24  2024 kcadm.sh
+-rwxrwxr-x 1 keycloak root 6684 Mar 24  2024 kc.bat
+-rw-rw-r-- 1 keycloak root  853 Mar 24  2024 kcreg.bat
+
+C:\Users\Kaba\Documents\spring\manage-university>
+C:\Users\Kaba\Documents\spring\manage-university>git add .
+warning: in the working copy of 'keycloak/realm/manage-university', LF will be replaced by CRLF the next time Git touches it
