@@ -1,6 +1,7 @@
 package com.university.handler;
 
 import com.university.exception.ContactConflictException;
+import com.university.exception.CourseException;
 import com.university.exception.NameConflictException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.ResponseEntity;
@@ -73,6 +74,18 @@ public class GlobalExceptionHandler {
                 );
     }
 
+    @ExceptionHandler(CourseException.class)
+    public ResponseEntity<ExceptionResponse> handleException(CourseException exp) {
+        return ResponseEntity
+                .status(BusinessErrorCodes.DUPLICATE_COURSE_FOR_DEPARTMENT.getHttpStatus())
+                .body(
+                        ExceptionResponse.builder()
+                                .businessErrorCode(BusinessErrorCodes.DUPLICATE_COURSE_FOR_DEPARTMENT.getCode())
+                                .businessErrorDescription(BusinessErrorCodes.DUPLICATE_COURSE_FOR_DEPARTMENT.getDescription())
+                                .error(exp.getMessage())
+                                .build()
+                );
+    }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ExceptionResponse> handleException(Exception exp) {
