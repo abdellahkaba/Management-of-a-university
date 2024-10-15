@@ -38,4 +38,16 @@ public class CourseAssignmentController {
         service.deleteCourseAssign(assignmentId);
         return ResponseEntity.accepted().build();
     }
+
+    @PutMapping("/{assignment-id}")
+    public ResponseEntity<Void> updateCourseAssign(
+            @PathVariable("assignment-id") Integer id,
+            @RequestBody @Valid UpdateCourseAssignmentRequest request
+    ){
+        request = new UpdateCourseAssignmentRequest(
+                id, request.instructorId(), request.courseId()
+        );
+        service.updateCourseAssign(request);
+        return ResponseEntity.accepted().build();
+    }
 }

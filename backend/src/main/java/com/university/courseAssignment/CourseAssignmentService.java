@@ -46,4 +46,20 @@ public class CourseAssignmentService {
                 .orElseThrow(() -> new  EntityNotFoundException(BusinessErrorCodes.ENTITY_NOT_FOUND.getDescription()));
         repository.delete(courseAssignment);
     }
+
+    public void updateCourseAssign(UpdateCourseAssignmentRequest request) {
+        var courseAssignment = repository.findById(request.id())
+                .orElseThrow(() -> new EntityNotFoundException(BusinessErrorCodes.ENTITY_NOT_FOUND.getDescription() + " : " + request.id()));
+        if (request.instructorId() != null) {
+            var instructor = instructorRepository.findById(request.instructorId())
+                    .orElseThrow(() -> new EntityNotFoundException("Cet Instructor n'existe pas"));
+            courseAssignment.setInstructor(instructor);
+        }
+        if (request.courseId() != null){
+            var course = courseRepository.findById(request.courseId())
+                    .orElseThrow(() -> new EntityNotFoundException("Cet cours n'existe pas"));
+            courseAssignment.setCourse(course);
+        }
+        repository.save(courseAssignment);
+    }
 }
