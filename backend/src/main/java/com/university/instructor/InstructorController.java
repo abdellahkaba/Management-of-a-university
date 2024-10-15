@@ -32,4 +32,16 @@ public class InstructorController {
     ){
         return ResponseEntity.ok(service.getInstructorById(instructorId));
     }
+
+    @PutMapping("/{instructor-id}")
+    public ResponseEntity<Void> updateInstructor(
+            @PathVariable("instructor-id") Integer id,
+            @RequestBody InstructorUpdateRequest request
+    ){
+        request = new InstructorUpdateRequest(
+                id, request.name(), request.contact(), request.hireDate()
+        );
+        service.updateInstructor(request);
+        return ResponseEntity.accepted().build();
+    }
 }
