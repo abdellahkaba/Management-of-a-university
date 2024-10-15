@@ -1,5 +1,7 @@
 package com.university.student;
 
+import com.university.handler.BusinessErrorCodes;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,12 @@ public class StudentService {
                 .stream()
                 .map(mapper::fromStudent)
                 .collect(Collectors.toList());
+    }
+
+    public StudentResponse getStudentById(Integer studentId) {
+        return repository.findById(studentId)
+                .map(mapper::fromStudent)
+                .orElseThrow(() -> new EntityNotFoundException(BusinessErrorCodes.ENTITY_NOT_FOUND.getDescription() + " : " + studentId));
     }
 
 }
