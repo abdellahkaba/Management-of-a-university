@@ -44,4 +44,12 @@ public class EnrollmentController {
         service.updateEnrollment(request);
         return ResponseEntity.accepted().build();
     }
+
+    @DeleteMapping("/{enroll-id}")
+    public ResponseEntity<Void> deleteEnrollment(
+            @PathVariable("enroll-id") Integer enrollId
+    ){
+        service.deleteEnrollment(enrollId);
+        return ResponseEntity.accepted().build();
+    }
 }

@@ -61,4 +61,10 @@ public class EnrollmentService {
         }
         repository.save(enrollment);
     }
+
+    public void deleteEnrollment(Integer enrollId) {
+        var enrollment = repository.findById(enrollId)
+                .orElseThrow(() -> new EntityNotFoundException(BusinessErrorCodes.ENTITY_NOT_FOUND.getDescription()+ " : " + enrollId));
+        repository.delete(enrollment);
+    }
 }
