@@ -29,4 +29,16 @@ public class DepartmentController {
     ){
         return ResponseEntity.ok(service.getDepartmentById(departmentId));
     }
+
+    @PutMapping("/{department-id}")
+    public ResponseEntity<Void> updateDepartment(
+            @PathVariable("department-id") Integer id,
+            @RequestBody UpdateDepartmentRequest request
+    ){
+        request = new UpdateDepartmentRequest(
+                id, request.name(), request.description(), request.instructorId()
+        );
+        service.updateDepartment(request);
+        return ResponseEntity.accepted().build();
+    }
 }

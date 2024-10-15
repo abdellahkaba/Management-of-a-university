@@ -3,6 +3,8 @@ package com.university.department;
 
 import com.university.exception.NameConflictException;
 import com.university.handler.BusinessErrorCodes;
+import com.university.instructor.InstructorRepository;
+import io.micrometer.common.util.StringUtils;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,7 @@ public class DepartmentService {
 
     private final DepartmentRepository repository ;
     private final DepartmentMapper mapper ;
+    private final InstructorRepository instructorRepository;
     public String createDepartment(DepartmentRequest request) {
         if (repository.findByName(request.name()).isPresent()){
             throw new NameConflictException(BusinessErrorCodes.DUPLICATE_NAME.getDescription() + " : " + request.name());
@@ -35,5 +38,28 @@ public class DepartmentService {
         return repository.findById(departmentId)
                 .map(mapper::fromDepartment)
                 .orElseThrow(() -> new EntityNotFoundException(BusinessErrorCodes.ENTITY_NOT_FOUND.getDescription()+ " : " + departmentId));
+    }
+
+    public void updateDepartment(UpdateDepartmentRequest request) {
+        var department = repository.findById(request.id())
+                .orElseThrow(() -> new EntityNotFoundException(BusinessErrorCodes.ENTITY_NOT_FOUND.getDescription() + " : " + request.id()));
+        if (StringUtils.isNotBlank(request.name()) &&
+                !request.name().equals(department.getName()) &&
+                repository.findByName(request.name()).isPresent()
+        ){
+            throw new NameConflictException(BusinessErrorCodes.DUPLICATE_NAME.getDescription() + " : " + request.name());
+        }
+        if (StringUtils.isNotBlank(request.name())){
+            department.setName(request.name());
+        }
+        if (StringUtils.isNotBlank(request.description())){
+            department.setDescription(request.description());
+        }
+        if (request.instructorId() != null){
+            var instructor = instructorRepository.findById(request.instructorId())
+                    .orElseThrow(() -> new EntityNotFoundException("Ce Instructor n'existe pas"));
+            department.setAdministrator(instructor);
+            repository.save(department);
+        }
     }
 }
