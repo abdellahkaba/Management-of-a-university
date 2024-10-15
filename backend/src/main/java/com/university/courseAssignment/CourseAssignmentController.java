@@ -30,4 +30,12 @@ public class CourseAssignmentController {
     ){
         return ResponseEntity.ok(service.getCourseAssign(assignmentId));
     }
+
+    @DeleteMapping("/{assignment-id}")
+    public ResponseEntity<Void> deleteCourseAssign(
+            @PathVariable("assignment-id") Integer assignmentId
+    ){
+        service.deleteCourseAssign(assignmentId);
+        return ResponseEntity.accepted().build();
+    }
 }

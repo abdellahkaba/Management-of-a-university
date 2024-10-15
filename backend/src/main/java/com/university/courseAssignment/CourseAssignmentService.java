@@ -40,4 +40,10 @@ public class CourseAssignmentService {
                 .map(mapper::fromCourseAssignment)
                 .orElseThrow(() -> new EntityNotFoundException(BusinessErrorCodes.ENTITY_NOT_FOUND.getDescription() + " : " + assignmentId));
     }
+
+    public void deleteCourseAssign(Integer assignmentId) {
+        var courseAssignment = repository.findById(assignmentId)
+                .orElseThrow(() -> new  EntityNotFoundException(BusinessErrorCodes.ENTITY_NOT_FOUND.getDescription()));
+        repository.delete(courseAssignment);
+    }
 }
