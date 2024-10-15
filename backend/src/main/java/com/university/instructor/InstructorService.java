@@ -30,6 +30,12 @@ public class InstructorService {
                 .collect(Collectors.toList());
     }
 
+    public void deleteInstructor(Integer instructorId) {
+        var instructor = repository.findById(instructorId)
+                .orElseThrow(() -> new EntityNotFoundException(BusinessErrorCodes.ENTITY_NOT_FOUND.getDescription() + " : " + instructorId));
+        repository.delete(instructor);
+    }
+
     public InstructorResponse getInstructorById(Integer instructorId) {
         return repository.findById(instructorId)
                 .map(mapper::fromInstructor)
