@@ -45,4 +45,12 @@ public class StudentController {
         service.updateStudent(request);
         return ResponseEntity.accepted().build();
     }
+
+    @DeleteMapping("/{student-id}")
+    public ResponseEntity<Void> deleteStudent(
+            @PathVariable("student-id") Integer studentId
+    ){
+        service.deleteStudent(studentId);
+        return ResponseEntity.accepted().build();
+    }
 }

@@ -44,4 +44,10 @@ public class StudentService {
         repository.save(student);
     }
 
+    public void deleteStudent(Integer studentId) {
+        var student = repository.findById(studentId)
+                .orElseThrow(() -> new EntityNotFoundException(BusinessErrorCodes.ENTITY_NOT_FOUND.getDescription() + " : " + studentId));
+        repository.delete(student);
+    }
+
 }
