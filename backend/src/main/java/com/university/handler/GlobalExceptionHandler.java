@@ -1,8 +1,6 @@
 package com.university.handler;
 
-import com.university.exception.ContactConflictException;
-import com.university.exception.CourseException;
-import com.university.exception.NameConflictException;
+import com.university.exception.*;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -82,6 +80,31 @@ public class GlobalExceptionHandler {
                         ExceptionResponse.builder()
                                 .businessErrorCode(BusinessErrorCodes.DUPLICATE_COURSE_FOR_DEPARTMENT.getCode())
                                 .businessErrorDescription(BusinessErrorCodes.DUPLICATE_COURSE_FOR_DEPARTMENT.getDescription())
+                                .error(exp.getMessage())
+                                .build()
+                );
+    }
+
+    @ExceptionHandler(InstructorOfficeConflictException.class)
+    public ResponseEntity<ExceptionResponse> handleException(InstructorOfficeConflictException exp) {
+        return ResponseEntity
+                .status(BusinessErrorCodes.DUPLICATE_INSTRUCTOR_FOR_OFFICE.getHttpStatus())
+                .body(
+                        ExceptionResponse.builder()
+                                .businessErrorCode(BusinessErrorCodes.DUPLICATE_INSTRUCTOR_FOR_OFFICE.getCode())
+                                .businessErrorDescription(BusinessErrorCodes.DUPLICATE_INSTRUCTOR_FOR_OFFICE.getDescription())
+                                .error(exp.getMessage())
+                                .build()
+                );
+    }
+    @ExceptionHandler(LocationConflictException.class)
+    public ResponseEntity<ExceptionResponse> handleException(LocationConflictException exp) {
+        return ResponseEntity
+                .status(BusinessErrorCodes.DUPLICATE_LOCATION_OFFICE.getHttpStatus())
+                .body(
+                        ExceptionResponse.builder()
+                                .businessErrorCode(BusinessErrorCodes.DUPLICATE_LOCATION_OFFICE.getCode())
+                                .businessErrorDescription(BusinessErrorCodes.DUPLICATE_LOCATION_OFFICE.getDescription())
                                 .error(exp.getMessage())
                                 .build()
                 );
