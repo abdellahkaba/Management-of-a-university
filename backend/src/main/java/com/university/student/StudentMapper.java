@@ -13,4 +13,12 @@ public class StudentMapper {
                 .dateNaiss(request.dateNaiss())
                 .build();
     }
+
+    public StudentResponse fromStudent(Student student) {
+        return StudentResponse.builder()
+                .id(student.getId())
+                .name(student.getName())
+                .dateNaiss(student.getDateNaiss())
+                .build();
+    }
 }
