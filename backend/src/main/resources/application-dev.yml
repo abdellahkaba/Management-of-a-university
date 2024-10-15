@@ -13,3 +13,18 @@ spring:
         format_sql: true
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: "http://localhost:9090/realms/manage-university"
+          jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
+jwt:
+  auth:
+    converter:
+      resource-id: mng-university
+      principle-attribute: preferred_username
+logging:
+    level:
+      org.springframework.security.oauth2.server.resource: DEBUG
+      org.springframework.security: DEBUG
