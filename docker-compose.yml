@@ -1,16 +1,30 @@
 services:
+  # Base de données PostgreSQL pour l'application Spring Boot
   postgres:
     container_name: postgres-manage-university
     image: postgres
     environment:
       POSTGRES_USER: username
       POSTGRES_PASSWORD: password
-      PGDATA: /var/lib/postgresql/data
       POSTGRES_DB: manageUniversity_db
     volumes:
-      - postgres:/data/postgres
+      - postgres:/var/lib/postgresql/data  # Utilise le chemin correct pour PostgreSQL
     ports:
       - 5432:5432
+    networks:
+      - spring-university
+    restart: unless-stopped
+  keycloak-postgres:
+    container_name: keycloak-postgres
+    image: postgres
+    environment:
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: keycloak_db
+    volumes:
+      - ./volume-data/postgres_keycloak_data:/var/lib/postgresql/data  # Volume correct pour PostgreSQL
+    ports:
+      - 5433:5432  # Différencie bien les ports (localhost:5433 → container:5432)
     networks:
       - spring-university
     restart: unless-stopped
@@ -18,19 +32,39 @@ services:
     container_name: keycloak-university
     image: quay.io/keycloak/keycloak:24.0.2
     ports:
-      - 9090:8080
+      - 9090:8080  # Expose Keycloak sur le port 9090 de l'hôte (localhost)
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://keycloak-postgres:5432/keycloak_db
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: password
+    volumes:
+      - keycloak:/opt/keycloak/data  # Volume pour les données de Keycloak
     networks:
       - spring-university
+    depends_on:
+      - keycloak-postgres
     command:
       - "start-dev"
+  mng-university:
+    container_name: mng-university
+    image: mng-university/mng-university:1.0.0
+    ports:
+      - 8090:8090
+    networks:
+      - spring-university
+    depends_on:
+      - postgres
+
 networks:
   spring-university:
     driver: bridge
+
 volumes:
   postgres:
     driver: local
   keycloak:
     driver: local
+

@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/manageUniversity_db
+    url: jdbc:postgresql://postgres-manage-university:5432/manageUniversity_db
     username: username
     password: password
     driver-class-name: org.postgresql.Driver
@@ -18,13 +18,18 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: "http://localhost:9090/realms/manage-university"
-          jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
-jwt:
-  auth:
-    converter:
-      resource-id: mng-university
-      principle-attribute: preferred_username
+
+#jwt:
+#  auth:
+#    converter:
+#      resource-id: mng-university
+#      principle-attribute: preferred_username
+#
 logging:
-    level:
-      org.springframework.security.oauth2.server.resource: DEBUG
-      org.springframework.security: DEBUG
+  level:
+    org.springframework.security.oauth2.server.resource: DEBUG
+    org.springframework.security: DEBUG
+
+
+
+
